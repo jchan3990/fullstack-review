@@ -7,15 +7,18 @@ let getReposByUsername = (username) => {
 
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
-  axios({
-    method: get,
+  return axios({
+    method: 'get',
     url: `https://api.github.com/users/${username}/repos`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.TOKEN}`
     }
   })
-    .then(res => {console.log(res, 'GET user repos SUCCESS')})
+    .then(res => {
+      console.log('GET user repos SUCCESS');
+      return res;
+    })
     .catch(err => {console.log('User repos FAIL')})
 }
 
