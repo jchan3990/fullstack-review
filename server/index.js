@@ -2,6 +2,9 @@ const github = require('../helpers/github.js');
 const db = require('../database/index.js');
 const Parser = require('body-parser');
 const express = require('express');
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+
 let app = express();
 
 app.use(Parser.json())
@@ -16,8 +19,9 @@ app.post('/repos', function(req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  db.get25()
+    .then(results => {res.status(200).send(results)})
+    .catch(err => {res.status(400).send('Cannot get 25 repos')})
 });
 
 let port = 1128;

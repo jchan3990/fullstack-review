@@ -4,7 +4,6 @@ import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 import axios from 'axios';
-import { AxiosProvider, Request, Get, Delete, Head, Post, Put, Patch, withAxios } from 'react-axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +12,21 @@ class App extends React.Component {
       repos: []
     }
     this.search = this.search.bind(this);
+    this.getRepos = this.getRepos.bind(this);
+  }
+
+  componentDidMount() {
+    this.getRepos();
+  }
+
+  getRepos() {
+    axios.get('/repos')
+      .then(result => {
+        this.setState({repos: result.data});
+        console.log(this.state.repos);
+        console.log('SUCCESS: Repos fetched');
+      })
+      .catch(err => {console.log('FAIL: Could not get repos.')})
   }
 
   search (term) {

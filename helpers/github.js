@@ -17,7 +17,7 @@ let getReposByUsername = (username) => {
   })
     .then(res => {
       console.log('GET user repos SUCCESS');
-      return res;
+      return res.data;
     })
     .catch(err => {console.log('User repos FAIL')})
 }
